@@ -14,7 +14,7 @@ AND R4, R4, #0      ; use R4 to store max loop time 12
 ADD R4, R4, #12
 
 
-LD R1, xEE
+LD R1, xF8
 
 
 AND R2, R0, R1
