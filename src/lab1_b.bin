@@ -1,7 +1,7 @@
 ; .orig x3000
 0011 0000 0000 0000
 
-; ; initialize all register
+;; initialize all register
 ; AND R0, R0, #0      ; R0 is ...1111...
 ; ADD R0, R0, xF
 0101 000 000 1 00000
