@@ -1,0 +1,63 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{ctex}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage{fancyvrb}
+\geometry{left=2.0cm, right=2.0cm, top=2.0cm, bottom=2.0cm}   %页边距
+
+\title{\textbf{Report of lab1}}
+\author{孟澍 \\ 3210101819}
+
+\begin{document}
+\maketitle
+
+\section{Algorithm explanation}
+
+\section{Source code}
+\begin{Verbatim}[frame = single, numbers = left]
+; .orig x3000
+0011 0000 0000 0000
+
+; initialize all register
+0101 000 000 1 00000   ; R0 is ...1111...
+0001 000 000 1 01111
+0101 001 001 1 00000   ; R1 is the number to be tested
+0101 010 010 1 00000   ; R2 is used to store tmp result
+0101 011 011 1 00000   ; use R3 to count loop time
+0101 100 100 1 00000   ; use R4 to store max loop time 12
+0001 100 100 1 01100
+
+0010 001 011111000     ; load the word into R1
+0101 010 000 000 001   ; AND R2, R0, R1
+1001 010 010 111111    ; R2 = R0 - R2
+0001 010 010 1 00001
+0001 010 010 000 000
+; if R2 == 0, branch #7 and set R2 = 1 and HALT
+0000 010 000000111
+; else
+0001 000 000 000 000   ; R0 <<= R0
+; count the loop time and determine stop loop or not
+0001 011 011 1 00001   ; R3++
+1001 010 011 111111    ; R2 = R4 - R3
+0001 010 010 1 00001
+0001 010 010 000 100
+; if stop(R2 is negative), branch #3 and set R2 = 0 and HALT
+0000 100 000000100
+; if not stop, continue loop, branch #-12
+0000 111 111110100
+
+; set R2 = 1 and HALT
+0101 010 010 1 00000
+0001 010 010 1 00001
+1111 0000 0010 0101
+; set R2 = 0 and HALT
+0101 010 010 1 00000
+1111 0000 0010 0101
+\end{Verbatim}
+\section{Questions TA asked you and your answer in check}
+    
+\end{document}
