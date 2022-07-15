@@ -6,7 +6,6 @@
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \geometry{left=2.0cm, right=2.0cm, top=3.0cm, bottom=3.0cm}   %页边距
-\linespread{1.5}      %行距
 
 \begin{document}
 
@@ -22,11 +21,11 @@ R2 = x4566.\\
 R3 = xABCD.\\
 R4 = xABCD.\\
 
-% ~\\
-% \textbf{5.16}\\
-% a. PC-relative mode. The reason is that 
-% b. \ 7. Because $2^7 = 128 > 120.$\\
-% c. \ 3. Because $32 - 8 - 3 \times 7 = 3.$\\
+~\\
+\textbf{5.16}\\
+a. \ PC-relative mode. Because the address is less than $\pm 2^8$ locations away, the PC-relative mode can be used. The PC-relative mode is the simplest mode because you don't need to use extra registers.\\
+b. \ Indirect mode. Because the address is more than $2^8$ locations away, the PC-relative mode cannot be used. Because we only need to load one value, using the indirect mode can keep this process simple and tidy.\\
+c. \ Base + offset mode. Because we want to load an array of sequential addresses, we can use a register to store the address of the value that will be loaded next, after the value is loaded, we add 1 to the register and repeat this process. This means that we can load the array using a loop, instead of writing instructions repeatedly, which makes our program simpler.\\
 
 ~\\
 \textbf{5.37}\\
@@ -42,9 +41,9 @@ BR: PC.\\
 LEA: R7.\\
 LD: MAR.\\
 
-\newpage
+\noindent
 \textbf{6.9}\\
-\begin{Verbatim}[frame = single, numbers = left]
+\begin{Verbatim}[frame = single]
 0011 0000 0000 0000    ; x3000
 0010 000 000000101     ; R0 <- m[x3007]
 0010 001 000000101     ; R1 <- m[x3008]
@@ -58,7 +57,7 @@ LD: MAR.\\
 
 ~\\
 \textbf{6.10}\\
-\begin{Verbatim}[frame = single, numbers = left]
+\begin{Verbatim}[frame = single]
 0011 0000 0000 0000    ; x3000
 0101 001 010 1 00001   ; R1 <- R2 AND #1
 0000 001 000000011     ; BRz #3
