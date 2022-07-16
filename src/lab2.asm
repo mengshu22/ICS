@@ -36,9 +36,7 @@ BRp #-3
 ADD R3, R3, R0       ; R3 <- R3 + R0
 RET
 
-CONVERT LD R0, LOWX
-OUT
-ADD R6, R6, #4
+CONVERT ADD R6, R6, #4
 BR OUTPUT
 CONT ADD R3, R3, R3
 ADD R3, R3, R3
@@ -70,7 +68,7 @@ RET
 
 OUTPUT JSR GETHEX
 ADD R5, R5, #-10
-BRp #4
+BRzp #4
 LD R0, ZERO
 ADD R0, R0, R5
 ADD R0, R0, #10
@@ -80,7 +78,7 @@ ADD R0, R0, R5
 OUT
 BR CONT
 
-RETURN .fill x000D     ; ASCII code of ENTER, x000A(''\r') for linux and x000D('\n') for windows 
+RETURN .fill x000A     ; ASCII code of ENTER, x000A(''\r') for linux and x000D('\n') for windows 
 ZERO .fill x0030       ; ASCII code of '0'
 CAPA .fill x0041  ; ASCII code of 'A'
 LOWX .fill x0078    ; ASCII code of 'x'
