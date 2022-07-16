@@ -1,0 +1,65 @@
+\documentclass[a4paper,12pt]{article}     %页面大小和字体大小
+\usepackage{ctex}
+\usepackage{geometry}
+\usepackage{fancyvrb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\geometry{left=2.0cm, right=2.0cm, top=3.0cm, bottom=3.0cm}   %页边距
+
+\begin{document}
+
+\begin{center}   %居中设置
+孟澍 \ 3210101819
+\end{center}
+
+
+\noindent %顶格（不缩进）
+\textbf{6.3}\\
+\begin{Verbatim}[frame = single]
+0011 0000 0000 0000
+0010 000 000001110    ; R0 <- x4000
+0110 010 000 000001   ; R2 <- m[x4001]
+0101 011 011 1 00000
+0001 011 011 1 00001
+0110 001 000 000000    ; R1 <- m[x4000]
+0000 010 000000011
+0001 011 011 000 011      ; R3 <- R3 << 1
+0001 001 001 1 11111  ; R1 <- R1 - 1
+0000 111 111111100    ; R2 <- R2 OR R3
+1001 010 010 111111
+1001 011 011 111111
+0101 010 010 000 011
+1001 010 010 111111
+0111 010 000 000001   ; m[x4001] <- R2
+1111 0000 0010 0101
+0100 0000 0000 0000
+\end{Verbatim}
+
+~\\
+\textbf{7.4}\\
+~\\
+\begin{tabular}{|c|c|}
+  \hline
+  label & address \\
+  \hline
+  TEST & x301F \\
+  \hline
+  FINISH & x3027 \\
+  \hline
+  SAVE3 & x3029 \\
+  \hline
+  SAVE2 & x302A \\
+  \hline
+\end{tabular}\\
+
+~\\
+\textbf{7.18}\\
+a: \ LDR R3, R1, \#0 \\
+b: \ NOT R3, R3 \\
+c: \ ADD R3, R3, \#1 \\
+
+~\\
+\textbf{7.20}\\
+When we use module (a), because the process is done with real operates, the program must be run to store the data into memory. However, when we use module (b), because the whole process is done with pseodo-ops, the program dosen't need to be run.\\
+\end{document}
