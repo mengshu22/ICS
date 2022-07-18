@@ -1,0 +1,251 @@
+\documentclass[a4paper,12pt]{article}     %页面大小和字体大小
+\usepackage{ctex}
+\usepackage{ulem}
+\usepackage{geometry}
+\usepackage{fancyvrb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\geometry{left=2.0cm, right=2.0cm, top=3.0cm, bottom=3.0cm}   %页边距
+
+\begin{document}
+
+\begin{center}   %居中设置
+孟澍 \ 3210101819
+\end{center}
+
+
+\noindent %顶格（不缩进）
+\textbf{8.1}\\
+Last in, First out. That is, the last thing you stored in the stack is the ﬁrst thing you remove from it.
+
+~\\
+\textbf{8.7}\\
+\begin{Verbatim}[numbers = left]
+;
+; Subroutines for carrying out the PUSH and POP functions to handle
+; elements of arbitrary sizes. This program works with a stack consisting
+; of memory locations x3FFF through x3FFB. R6 is the stack pointer. R3 is
+; the size of the element. R4 is the address of the start of the element.
+;
+POP           ST R0,Save0
+              ST R1,Save1       ; Save registers that
+              ST R2,Save2       ; are needed by POP
+              LD R1,EMPTY       ; EMPTY contains -x4000
+              ADD R5,R3,R6      ; R5 is the address of SP after POP
+              ADD R2,R5,R1      ; Compare stack pointer to x4000
+              BRp fail_exit     ; Branch if stack is underflow
+              ADD R4,R4,R3      ; Move the R4 to the end
+              ADD R4,R4,#-1     ; of the element
+;
+              LDR R0,R6,#0      ; The actual "pop"
+              STR R0,R4,#0      ; Store the element
+              ADD R4,R4,#-1     ; The next address
+              ADD R6,R6,#1      ; Adjust stack pointer
+              ADD R3,R3,#-1     ; Count the size
+              BRp #-6           ; Continue loop
+              BRnzp success_exit
+;
+PUSH          AND R5,R5,#0
+              ST R0,Save0
+              ST R1,Save1       ; Save registers that
+              ST R2,Save2       ; are needed by PUSH
+              LD R1,FULL        ; FULL contains -x3FFB
+              NOT R5,R3
+              ADD R5,R5,1
+              ADD R5,R5,R6      ; R5 is the address of SP after PUSH
+              ADD R2,R5,R1      ; Compare stack pointer to x3FFB
+              BRn fail_exit     ; Branch if stack is overflow
+;
+              ADD R6,R6,#-1     ; Adjust stack pointer
+              LDR R0,R4,#0
+              STR R0,R6,#0      ; The actual "push"
+              ADD R4,R4,#1      ; The next address
+              ADD R3,R3,#-1     ; Count the size
+              BRp #-6           ; Continue loop
+;
+success_exit  LD R2,Save2       ; Restore original
+              LD R1,Save1       ; register values
+              LD R0,Save0
+              AND R5,R5,#0      ; R5 <-- success
+              RET
+;
+fail_exit     LD R2,Save2 ; Restore original
+              LD R1,Save1 ; register values
+              LD R0,Save0
+              AND R5,R5,#0
+              ADD R5,R5,#1 ; R5 <-- failure
+              RET
+;
+EMPTY         .FILL xC000 ; EMPTY contains -x4000
+FULL          .FILL xC005 ; FULL contains -x3FFB
+Save0         .FILL x0000
+Save1         .FILL x0000
+Save2         .FILL x0000
+\end{Verbatim}
+
+
+\newpage
+\noindent
+\textbf{8.8}\\
+~\\
+a:
+\begin{tabular}{|c|}
+  F\\
+  \hline
+  A\\
+  \hline
+\end{tabular}\\
+~\\
+b: \ After PUSH D or after PUSH E.\\
+~\\
+c:
+\begin{tabular}{|c|}
+  M\\
+  \hline
+  F\\
+  \hline
+  A\\
+  \hline
+\end{tabular}\\
+
+~\\
+~\\
+\textbf{8.12}\\
+\begin{minipage}{\textwidth}
+  \begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \begin{tabular}{c|c|}
+      \cline{2-2}
+      x4000 & x0041\\
+      \cline{2-2}
+      x4001 & xA243\\
+      \cline{2-2}
+      x4002 & xA243\\
+      \cline{2-2}
+      x4003 & xBBBB\\
+      \cline{2-2}
+      x4004 & x3100\\
+      \cline{2-2}
+      x4005 & x3100\\
+      \cline{2-2}
+    \end{tabular}\\
+    ~\\
+    ~\\
+    \begin{tabular}{c|c|}
+      \cline{2-2}
+      x4100 & x0043\\
+      \cline{2-2}
+      x4101 & xBBBB\\
+      \cline{2-2}
+      x4102 & xA243\\
+      \cline{2-2}
+      x4103 & xA243\\
+      \cline{2-2}
+      x4104 & xBBBB\\
+      \cline{2-2}
+    \end{tabular}\\
+    ~\\
+    ~\\
+    \begin{tabular}{c|c|}
+      \cline{2-2}
+      x3100 & x0045\\
+      \cline{2-2}
+      x3101 & x0000\\
+      \cline{2-2}
+      x3102 & x4000\\
+      \cline{2-2}
+      x3103 & x4000\\
+      \cline{2-2}
+      x3104 & xBBBB\\
+      \cline{2-2}
+    \end{tabular}\\
+  \end{minipage}
+  \begin{minipage}[t]{0.45\textwidth}
+    \vspace{-5em}
+    \centering
+    \begin{tabular}{c|c|}
+      \cline{2-2}
+      x3050 & x4000\\
+      \cline{2-2}
+    \end{tabular}\\
+    ~\\
+    ~\\
+    \begin{tabular}{c|c|}
+      \cline{2-2}
+      xA243 & x0042\\
+      \cline{2-2}
+      xA244 & x4100\\
+      \cline{2-2}
+      xA245 & x4000\\
+      \cline{2-2}
+      xA246 & xBBBB\\
+      \cline{2-2}
+      xA247 & x4100\\
+      \cline{2-2}
+      xA248 & x4100\\
+      \cline{2-2}
+    \end{tabular}\\
+    ~\\
+    ~\\
+    \begin{tabular}{c|c|}
+      \cline{2-2}
+      xBBBB & x0044\\
+      \cline{2-2}
+      xBBBC & x3100\\
+      \cline{2-2}
+      xBBBD & x3100\\
+      \cline{2-2}
+      xBBBE & x4100\\
+      \cline{2-2}
+      xBBBF & xA243\\
+      \cline{2-2}
+      xBBC0 & x4000\\
+      \cline{2-2}
+    \end{tabular}\\
+  \end{minipage}
+\end{minipage}
+
+
+\newpage
+\noindent
+\textbf{8.14}\\
+\linespread{1.2}
+\begin{Verbatim}[commandchars=\\\{\}]
+.ORIG   x3000
+        LEA R3, NUM1
+        LEA R4, NUM2
+        LEA R5, RESULT
+        LDR R1, R3, #0
+        LDR R2, R4, #0
+        ADD R0, R1, R2
+        STR R0, R5, #0
+        \uline{JSR X}          (a)
+        LDR \uline{R1, R3, #1} (b)
+        LDR \uline{R2, R4, #1} (c)
+        ADD R1, \uline{R1, R2} (d)
+        \uline{ADD R0, R0, R1} (e)
+        STR R0, \uline{R5, #1} (f)
+        TRAP x25
+
+X       ST R4, SAVER4
+        AND R0, R0, #0
+        AND R4, R1, R2
+        BRn \uline{LABEL}      (g)
+        ADD R1, R1, #0
+        BRn \uline{ADDING}     (h)
+        ADD \uline{R2, R2, #0} (i)
+        BRn ADDING
+        BRnzp EXIT
+ADDING  ADD R4, R1, R2
+        BRn EXIT
+LABEL   ADD R0, R0, #1
+EXIT    LD R4, SAVER4
+        RET
+
+NUM1    .BLKW 2
+NUM2    .BLKW 2
+RESULT  .BLKW 2
+SAVER4  .BLKW 1
+\end{Verbatim}
+\end{document}

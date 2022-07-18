@@ -160,11 +160,12 @@ A .fill x1000
 \linespread{0.9}      %行距恢复
 
 \section{Questions TA asked you and your answer in check}
-Question: What's the actual process of the JSR instruction?
-
-First, the address of the instruction following JSR is stored in a temorary location.
-
-Question: 在函数调用时如何保存之前寄存器的值
+\noindent
+Question: What's the actual process of the JSR instruction?\\
+First, the address of the instruction following JSR is stored in a temorary location. Then the PC is loaded with the address of the ﬁrst instruction of the subroutine. Then, R7 is loaded with the value stored in the temporary location. After the subroutine is done, the RET instruction let the PC loaded with the value in R7, causing the program return to the original process.\\
+~\\
+Question: How to save the values in registers when calling a function?\\
+We can store these values into memory. We can use stack to help us.\\
 
 
 \end{document}
