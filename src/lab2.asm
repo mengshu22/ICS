@@ -1,11 +1,9 @@
 .orig x3000
-AND R0, R0, #0   ; R0 <- x0000
-
-AND R4, R4, #0   ; R4 is 
-
-AND R5, R5, #0   ; R5 store tmp variables
-
-AND R6, R6, #0   ; R6 store tmp variables
+; initialize
+AND R0, R0, #0   
+AND R4, R4, #0    
+AND R5, R5, #0   
+AND R6, R6, #0   
 
 LD R1, ZERO
 NOT R1, R1
@@ -19,7 +17,7 @@ AND R3, R3, #0   ; R3 is the decimal form of the number
 
 INPUT GETC       ; R0 <- inputchar
 OUT
-ADD R6, R0, R2   ; test R0 = '\r'?
+ADD R6, R0, R2   ; test R0 ?= '\r'
 BRz CONVERT
 ADD R0, R0, R1
 JSR MUL
@@ -78,7 +76,7 @@ ADD R0, R0, R5
 OUT
 BR CONT
 
-RETURN .fill x000A     ; ASCII code of ENTER, x000A(''\r') for linux and x000D('\n') for windows 
+RETURN .fill x000A     ; ASCII code of ENTER
 ZERO .fill x0030       ; ASCII code of '0'
 CAPA .fill x0041  ; ASCII code of 'A'
 LOWX .fill x0078    ; ASCII code of 'x'
