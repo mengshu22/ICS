@@ -1,0 +1,39 @@
+\documentclass[a4paper,12pt]{article}     %页面大小和字体大小
+\usepackage{ctex}
+\usepackage{geometry}
+\usepackage{fancyvrb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\geometry{left=2.0cm, right=2.0cm, top=3.0cm, bottom=3.0cm}   %页边距
+
+\begin{document}
+
+\begin{center}   %居中设置
+孟澍 \ 3210101819
+\end{center}
+
+
+\noindent %顶格（不缩进）
+\textbf{9.1}\\
+a. \ A device register is a register used to transfer data between the CPU and the device. Some device register can represent the status of the device, while others can store data that can be acquired by the CPU or the device.\\
+b. \ Device data register holds the data being transferred between the device and the computer.\\
+c. \ Device status register indicates status information about the device. For example, whether the device is available or is it still busy processing the most recent I/O task.\\
+
+~\\
+\textbf{9.2}\\
+Because if synchronous I/O is used, I/O devices operate at the speed as same as the microprocessor, no additional synchronization would be needed. The computer would simply know, after certain cycles of doing other stuff, the device is ready to provide/receive data, so the ready bit is not needed.\\
+
+~\\
+\textbf{9.9}\\
+If the ready bit is 1, the character stored in the KBDR before would be replaced by the newly input character, so the former character could not be read by the computer, causing some data missing. If the ready bit is 0, the character stored in the KBDR before would be read by the computer again, causing the computer read the character repeatedly. \\
+
+~\\
+\textbf{9.10}\\
+If the ready bit is 1, the character stored in the DDR before would be replaced by the newly output character, so the former character could not be displayed on the monitor, causing the output not complete. If the ready bit is 0, the character stored in the DDR before would be displayed again, such that there would be repeated data in output. \\
+
+~\\
+\textbf{9.14}\\
+We can exactly know we are going to load from the KBDR. Because the LC-3 is a memory-mapped machine, we know that the I/O device registers are mapped to a set of addresses that are allocated to I/O device registers rather than to memory locations. In particular, the KBDR is mapped to the address xFE02. So when we use the load instruction speciﬁes the address xFE02, the computer would know that we actually want to load data from the KBDR. Automatically, the computer would access to KBDR and get the data. In fact, the actual memory location xFE02 is unusable.
+
+\end{document}
