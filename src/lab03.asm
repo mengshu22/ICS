@@ -54,8 +54,8 @@ LPUSH       LD R0, LLIMIT
             BRz FULL
             GETC
             OUT
-            STR R0, R5, #0
-            ADD R5, R5, #1
+            STR R0, R5, #0   ; store the value
+            ADD R5, R5, #1   ; and update the left pointer
             RET
 ;
 LPOP        NOT R0, R6
@@ -63,9 +63,9 @@ LPOP        NOT R0, R6
             ADD R0, R0, R5
             ADD R0, R0, #-1
             BRz EMPTY
-            ADD R5, R5, #-1
+            ADD R5, R5, #-1  ; update the left pointer
             LDR R0, R5, #0
-            STR R0, R4, #0
+            STR R0, R4, #0   ; store the value to the string to be output
             ADD R4, R4, #1
             RET
 ;
@@ -76,8 +76,8 @@ RPUSH       LD R0, RLIMIT
             BRz FULL
             GETC
             OUT
-            STR R0, R6, #0
-            ADD R6, R6, #-1
+            STR R0, R6, #0   ; store the value
+            ADD R6, R6, #-1  ; and update the left pointer
             RET
 ;
 RPOP        NOT R0, R6
@@ -85,9 +85,9 @@ RPOP        NOT R0, R6
             ADD R0, R0, R5
             ADD R0, R0, #-1
             BRz EMPTY
-            ADD R6, R6, #1
+            ADD R6, R6, #1   ; update the right pointer
             LDR R0, R6, #0
-            STR R0, R4, #0
+            STR R0, R4, #0   ; store the value to the string to be output
             ADD R4, R4, #1
             RET
 ;
