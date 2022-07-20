@@ -50,27 +50,23 @@ Basic idea: Read the input, decide which operation need to be done, execute the 
 
   % '-'
   \node (dec2) [decision, below of=dec1, yshift= -0.7cm, xshift = -5cm] {list is empty?};
-  \node (pro4) [process, below of=dec2, yshift= -0.5cm, xshift = -1.5cm] {store '\underline{~}' into \\ the string \\ to be output};
-  \node (pro5) [process, below of=dec2, yshift= -1cm, xshift = 1.5cm] {load value \\ from the list \\ and put it into \\ the string \\ to be output};
+  \node (pro4) [process, below of=dec2, yshift= -1.5cm, xshift = -1.5cm] {store '\underline{~}' into \\ the string \\ to be output};
+  \node (pro5) [process, below of=dec2, yshift= -2cm, xshift = 1.5cm] {load value \\ from the list \\ and put it into \\ the string \\ to be output};
   \node (pro6) [process, below of=pro5, yshift= -1cm] {update left pointer};
 
   % '['
-  \node (in3) [io, below of=dec1, yshift= -0.7cm, xshift = -10cm] {INPUT the value \\ to be stored}
-  \node (pro7) [process, below of=in2, yshift= -0.2cm] {store the value};
-  \node (pro8) [process, below of=pro2, yshift= -0.2cm] {update right pointer};
+  \node (in3) [io, below of=dec1, yshift= -0.7cm] {INPUT the value \\ to be stored};
+  \node (pro7) [process, below of=in3, yshift= -0.2cm] {store the value};
+  \node (pro8) [process, below of=pro7, yshift= -0.2cm] {update right pointer};
+
   % ']'
-  \node (dec3) [decision, below of=dec1, yshift= -0.7cm, xshift = -5cm] {list is empty?};
-  \node (pro9) [process, below of=dec2, yshift= -0.5cm, xshift = -1.5cm] {store '\underline{~}' into \\ the string \\ to be output};
-  \node (pro10) [process, below of=dec2, yshift= -1cm, xshift = 1.5cm] {load value \\ from the list \\ and put it into \\ the string \\ to be output};
-  \node (pro11) [process, below of=pro8, yshift= -1cm] {update right pointer};
+  \node (dec3) [decision, below of=dec1, yshift= -0.7cm, xshift = 5cm] {list is empty?};
+  \node (pro9) [process, below of=dec3, yshift= -1.5cm, xshift = -1.5cm] {store '\underline{~}' into \\ the string \\ to be output};
+  \node (pro10) [process, below of=dec3, yshift= -2cm, xshift = 1.5cm] {load value \\ from the list \\ and put it into \\ the string \\ to be output};
+  \node (pro11) [process, below of=pro10, yshift= -1cm] {update right pointer};
+
   % '\n'
-  \node (pro12) [process, below of=dec1, yshift= -0.7cm, xshift = 10cm] {R0 = '$\backslash$ n'};
-  
-  
-  
-  \node (pro10) [process, below of=pro5, yshift= -0.2cm] {R0 = '+'};
-  \node (pro11) [process, below of=pro6, yshift= -0.2cm] {R0 = '+'};
-  \node (out1) [io, below of=pro11, yshift = -0.2cm] {OUTPUT};
+  \node (out1) [io, below of=dec1, yshift= -0.7cm, xshift = 10cm] {OUTPUT \\ the string};
   \node (stop) [startstop, below of=out1, yshift= -0.2cm] {stop};
 
   %连接具体形状
@@ -81,29 +77,34 @@ Basic idea: Read the input, decide which operation need to be done, execute the 
   \draw [arrow](dec1) -- node[anchor=east] {'+'} (in2);
   \draw [arrow](in2) -- (pro2);
   \draw [arrow](pro2) -- (pro3);
+  \draw [arrow](pro3) -- ($(pro3.south) + (0, -2.2)$) -- ($(pro3.south) + (-3, -2.2)$) |- ($(in1.north) + (0, 0.2)$);
 
   \draw [arrow](dec1) -- node[anchor=east] {'-'} (dec2);
-  \draw [arrow](dec2) -- (pro4);
-  \draw [arrow](pro4) -- (pro5);
+  \draw [arrow](dec2) -- node[anchor=east] {YES} (pro4);
+  \draw [arrow](dec2) -- node[anchor=west] {NO} (pro5);
   \draw [arrow](pro5) -- (pro6);
+  \draw [arrow](pro4) |- ($(pro3.south) + (0, -2.2)$) -- ($(pro3.south) + (-3, -2.2)$) |- ($(in1.north) + (0, 0.2)$);
+  \draw [arrow](pro6) |- ($(pro3.south) + (0, -2.2)$) -- ($(pro3.south) + (-3, -2.2)$) |- ($(in1.north) + (0, 0.2)$);
 
   \draw [arrow](dec1) -- node[anchor=east] {'['} (in3);
+  \draw [arrow](in3) -- (pro7);
+  \draw [arrow](pro7) -- (pro8);
+  \draw [arrow](pro8) |- ($(pro3.south) + (0, -2.2)$) -- ($(pro3.south) + (-3, -2.2)$) |- ($(in1.north) + (0, 0.2)$);
+
   \draw [arrow](dec1) -- node[anchor=west] {']'} (dec3);
-  \draw [arrow](dec1) -- node[anchor=west] {'$\backslash n$'} (pro12);
-  % \draw [arrow](dec1) -- node[anchor=west] {NO} (pro2);
-  % \draw [arrow](pro2) -- ($(pro2.south) + (0, -0.3)$) -- ($(pro2.south) + (2, -0.3)$) -- ($(in1.north) + (2, 0.3)$) -- ($(in1.north) + (0, 0.3)$);
-  % \draw [arrow](pro3) -- (dec2);
-  % \draw [arrow](dec2) -- node[anchor=east] {NO} (out1);
-  % \draw [arrow](dec2) -- node[anchor=west] {YES} (out2);
-  % \draw [arrow](out1) -- (pro4);
-  % \draw [arrow](out2) -- (pro4);
-  % \draw [arrow](pro4) -- (dec3);
-  % \draw [arrow](dec3) -- ($(dec3.east) + (0.75,0)$) node[anchor=south] {NO} -- ($(dec3.east) + (4,0)$) |- ($(pro3.north) + (0, 0.3)$);
-  % \draw [arrow](dec3) -- node[anchor = west] {YES} (stop);
+  \draw [arrow](dec3) -- node[anchor=east] {YES} (pro9);
+  \draw [arrow](dec3) -- node[anchor=west] {NO} (pro10);
+  \draw [arrow](pro10) -- (pro11);
+  \draw [arrow](pro9) |- ($(pro3.south) + (0, -2.2)$) -- ($(pro3.south) + (-3, -2.2)$) |- ($(in1.north) + (0, 0.2)$);
+  \draw [arrow](pro11) |- ($(pro3.south) + (0, -2.2)$) -- ($(pro3.south) + (-3, -2.2)$) |- ($(in1.north) + (0, 0.2)$);
+
+  \draw [arrow](dec1) -- node[anchor=west] {'$\backslash$n'} (out1);
+  \draw (out1) -- (stop);
   \end{tikzpicture}
 \caption{The flowchart of the program.}
 \end{figure}
 
+\newpage
 \section{Source code}
 \linespread{0.8}      %行距缩小
 \begin{Verbatim}[frame = single, numbers = left, fontsize = \footnotesize]
