@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{geometry}
 \usepackage{mathptmx}
+\usepackage{makecell}
 \usepackage[T1]{fontenc}
 \usepackage{fancyvrb}
 \geometry{left=2.0cm, right=2.0cm, top=2cm, bottom=2cm}   %页边距
@@ -21,10 +22,11 @@
 \tikzstyle{every node}=[scale=0.7]
 
 \renewcommand{\figurename}{Fig}
+\renewcommand{\tablename}{Tab}
 
 \title{\textbf{Report of lab3}}
 \author{孟澍 \\ 3210101819}
-\date{2022年7月20日}
+\date{2022年7月21日}
 
 \begin{document}
 \maketitle
@@ -233,7 +235,53 @@ OUTSTR      .BLKW x0200
 
 \section{Questions TA asked you and your answer in check}
 \noindent
-如何更好地利用内存空间？即：当只从左侧插入右侧取出时，如何保证内存空间的合理利用？
-
+Question: How to use memory more properly? For example, if we keep pushing values from the left and keep popping values from the right, the list could be "full" very quickly but with very few values in it. How to avoid this situation?\\
+Answer: In my original design, when the pointer reaches its bound, the program thinks the list is full at this side. However, instead of controling each pointer within its bound, we can use the memory in a more flexible way. When the memory designated to the list is not full and one pointer reaches its bound, we can set this pointer to the other bound and store new values. That is, the memory area is used in a circular way. By carefully checking the relative location of two pointers, in extreme situations we can store more values than the original design. \\
+\begin{minipage}[h]{\textwidth}
+  \begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \makeatletter\def\@captype{table}
+    \begin{tabular}{r|c|c@{}l}
+      \cline{2-2}
+      right bound & & \\
+      \cline{2-2}
+                  & & \\
+      \cline{2-2}
+                  & & \\
+      \cline{2-2}
+                  &   & $\leftarrow$ & {\footnotesize right pointer(moving up)}\\
+      \cline{2-2}
+                  & a \\
+      \cline{2-2}
+                  & b \\
+      \cline{2-2}
+      left bound  &  & $\leftarrow$ & {\footnotesize left pointer(moving down)}\\
+      \cline{2-2}
+    \end{tabular}
+    \caption{The original design.}
+  \end{minipage}
+  \begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \makeatletter\def\@captype{table}
+    \begin{tabular}{r|c|c@{}l}
+      \cline{2-2}
+      right bound & d & \\
+      \cline{2-2}
+                  &   & $\leftarrow$ & {\footnotesize left pointer(moving down)}\\
+      \cline{2-2}
+                  &   & \\
+      \cline{2-2}
+                  &   & $\leftarrow$ & {\footnotesize right pointer(moving up)}\\
+      \cline{2-2}
+                  & a \\
+      \cline{2-2}
+                  & b \\
+      \cline{2-2}
+      left bound  & c \\
+      \cline{2-2}
+    \end{tabular}
+    \caption{The new design.}
+  \end{minipage}
+\end{minipage}
 
 \end{document}
