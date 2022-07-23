@@ -9,6 +9,7 @@
 \usepackage{fancyvrb}
 \usepackage{caption}
 \usepackage{capt-of}
+\usepackage{setspace}
 
 \geometry{left=2.0cm, right=2.0cm, top=2cm, bottom=2cm}   %页边距
 
@@ -89,10 +90,7 @@ Basic idea: Repeadedly print a line. When interrupt, deal with the interrupt, th
     \draw [arrow] (dec2) -- node[anchor = west] {NO} (stop);
     \draw [arrow] (dec1) -- node[anchor = west] {letter} (pro3);
     \draw [arrow] (pro3) -- (stop);
-
-    % \draw [arrow] (pro3) -- ($(pro3.south) + (0, -2)$) -- ($(pro3.south) + (-2, -2)$) |- ($(dec1.north) + (0, 0.2)$);
-    % \draw [arrow] (pro4) |- ($(pro3.south) + (0, -2)$) -- ($(pro3.south) + (-2, -2)$) |- ($(dec1.north) + (0, 0.2)$);
-    % \draw [arrow] (pro5) |- ($(pro3.south) + (0, -2)$) -- ($(pro3.south) + (-2, -2)$) |- ($(dec1.north) + (0, 0.2)$);
+    \draw [arrow] (pro4) -- (stop);
     \end{tikzpicture}
     \captionof{figure}{The flowchart of interrupt.}
   \end{minipage}
@@ -230,10 +228,15 @@ LIMH        .FILL x0011
 EMPTY       .FILL xFE00
             .END
 \end{Verbatim}
-\linespread{0.9}      %行距恢复
+\linespread{0.8}      %行距恢复
 
 \section{Questions TA asked you and your answer in check}
+
+\begin{spacing}{0.8}
 \noindent
-Question: What's the process of interrupt inside the CPU?
+Question: What's the process of interrupt inside the CPU?\\
+Answer: Firsyly, the PSR of the interrupted process is saved in TEMP. Secondly, The processor sets the privilege mode to Supervisor mode (PSR[15]=0). Thirdly, the processor sets the priority level to the priority level of the
+interrupting device. Forthly, if the interrupted process is in User mode, R6 is saved in Saved USP and R6 is loaded with the Supervisor Stack Pointer (SSP). Fifthly, TEMP and the PC of the interrupted process are pushed onto the supervisor stack. Sixthly, the interrupting device supplies its eight-bit interrupt vector. Seventhly, the processor expands that vector to the corresponding 16-bit address in the interrupt vector table. Eighthly, The PC is loaded with the contents of memory location that is stored in the interrupt vector. Ninethly, the processor begins execution of the interrupt service routine. Finally, the last instruction executed in an interrupt service routine is RTI. The top two elements of the supervisor stack are popped and loaded into the PC and PSR registers. R6 is loaded with the appropriate stack pointer, depending on the new value of PSR[15]. Processing then continues where the interrupted program left off.
+\end{spacing}
 
 \end{document}
